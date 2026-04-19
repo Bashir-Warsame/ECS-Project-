@@ -7,3 +7,31 @@ __pycache__/
 *.pyd
 *.db
 .DS_Store
+.requirements.txt
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.lock.hcl
+.terraform.tfstate.backup
+
+# Sensitive variables
+terraform.tfvars
+*.auto.tfvars
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+env/
+venv/
+```

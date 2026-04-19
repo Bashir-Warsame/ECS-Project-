@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from .database import Base, engine, get_db
 from .routers.shortener import router as shortener_router
 from . import crud
+import os
 
 app = FastAPI(title="URL Shortener", version="1.0.0")
 
@@ -16,9 +17,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
-templates = Jinja2Templates(directory="app/templates")
+app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
+templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
+
 
 @app.on_event("startup")
 async def on_startup():
