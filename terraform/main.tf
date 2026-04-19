@@ -24,4 +24,25 @@ module "alb" {
   project_name   = var.project_name
   vpc_id         = module.vpc.vpc_id
   public_subnets = module.vpc.public_subnets
+  certificate_arn = module.acm.certificate_arn
 }
+
+
+module "dns" {
+  source = "./modules/dns"
+
+  domain_name   = "bashirwarsame.online"
+  alb_dns_name  = module.alb.alb_dns_name
+  alb_zone_id   = module.alb.alb_zone_id
+}
+
+module "acm" {
+  source = "./modules/acm"
+
+  domain_name = "bashirwarsame.online"
+
+  subject_alternative_names = [
+    "api.bashirwarsame.online"
+  ]
+}
+ 
