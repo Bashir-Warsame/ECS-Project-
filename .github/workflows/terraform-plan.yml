@@ -1,9 +1,7 @@
-name: Terraform Plan
+name: Terraform Apply
 
 on:
-  pull_request:
-  push:
-    branches: [main]
+  workflow_dispatch:
 
 permissions:
   id-token: write
@@ -30,6 +28,6 @@ jobs:
         working-directory: terraform
         run: terraform init
 
-      - name: Terraform Plan
+      - name: Terraform Apply
         working-directory: terraform
-        run: terraform plan
+        run: terraform apply -auto-approve
