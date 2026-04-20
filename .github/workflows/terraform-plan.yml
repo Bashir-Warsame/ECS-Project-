@@ -1,11 +1,16 @@
-name: Terraform Apply
+name: Terraform Plan
 
 on:
-  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
 
 permissions:
   id-token: write
   contents: read
+
+env:
+  TF_IN_AUTOMATION: true
 
 jobs:
   terraform:
@@ -26,8 +31,16 @@ jobs:
 
       - name: Terraform Init
         working-directory: terraform
-        run: terraform init
+        run: terraform init -input=false
 
-      - name: Terraform Apply
+      - name: Terraform Validate
         working-directory: terraform
-        run: terraform apply -auto-approve
+        run: terraform validate
+
+      - name: Terraform fmt check
+        working-directory: terraform
+        run: terraform fmt -check -recursive
+
+      - name: Terraform Plan
+        working-directory: terraform
+        run: terraform plan -input=false -lock-timeout=60s
