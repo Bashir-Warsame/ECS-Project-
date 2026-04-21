@@ -12,7 +12,7 @@ Production-style deployment of a FastAPI application on AWS using Terraform, ECS
 
 ---
 
-## 🚀 Overview
+##  Overview
 
 This project provisions cloud infrastructure and deploys a containerized FastAPI app with:
 
@@ -26,7 +26,7 @@ This project provisions cloud infrastructure and deploys a containerized FastAPI
 
 ---
 
-## 🏗 Architecture
+##  Architecture
 
 ```text
 User
@@ -44,7 +44,7 @@ FastAPI Container
 
 ---
 
-## 📦 Infrastructure Components
+## Infrastructure Components
 
 ### Networking
 
@@ -76,14 +76,14 @@ FastAPI Container
 
 ---
 
-## 🌐 Live Endpoints
+## Live Endpoints
 
 * `https://bashirwarsame.online`
 * `https://api.bashirwarsame.online`
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 * Python / FastAPI
 * Docker
@@ -96,7 +96,7 @@ FastAPI Container
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 terraform/
@@ -142,7 +142,7 @@ terraform destroy
 
 ---
 
-## 🐳 Deploy App Image
+## Deploy App Image
 
 Build and push Docker image to ECR:
 
@@ -163,7 +163,7 @@ aws ecs update-service \
 
 ---
 
-## 🔐 Security
+## Security
 
 * HTTPS enabled with ACM
 * ALB security groups
@@ -173,7 +173,7 @@ aws ecs update-service \
 
 ---
 
-## 📈 Future Improvements
+## Future Improvements
 
 * GitHub Actions CI/CD with OIDC
 * Blue/Green deployments with CodeDeploy
@@ -181,17 +181,12 @@ aws ecs update-service \
 * CloudWatch dashboards and alarms
 * VPC Endpoints
 * Auto scaling policies
-
 ---
 
-## 🎯 Purpose
+## Purpose
 
 This project demonstrates real-world AWS cloud engineering skills:
 
-* Infrastructure as Code
-* Container orchestration
-* Secure networking
-* DNS + TLS setup
-* Production deployment patterns
-* CI/CD foundations
+
+s
 
