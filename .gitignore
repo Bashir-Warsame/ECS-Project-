@@ -7,7 +7,7 @@ __pycache__/
 *.pyd
 *.db
 .DS_Store
-.requirements.txt
+requirements.txt
 
 # Terraform
 .terraform/
@@ -35,5 +35,7 @@ __pycache__/
 env/
 venv/
 ```
-.trust-policy.json
-.start.sh
+trust-policy.json
+start.sh
+test.txt
+app.db
