@@ -4,6 +4,10 @@ on:
   pull_request:
   push:
     branches: [main]
+    paths:
+      - 'app/**'
+      - 'Dockerfile'
+      - 'terraform/**'
 
 permissions:
   id-token: write

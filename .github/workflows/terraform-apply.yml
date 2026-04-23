@@ -3,6 +3,10 @@ name: Terraform Apply
 on:
   push:
     branches: [main]
+    paths:
+      - 'app/**'
+      - 'Dockerfile'
+      - 'terraform/**'
 
 permissions:
   id-token: write
