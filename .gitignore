@@ -1,41 +1,40 @@
+# Python
 __pycache__/
 .pytest_cache/
 .venv/
+venv/
+env/
 .env
+
 *.pyc
 *.pyo
 *.pyd
+
+# Database
 *.db
+app.db
+
+# macOS
 .DS_Store
-requirements.txt
+
+# Project files
+trust-policy.json
+start.sh
+test.txt
 
 # Terraform
 .terraform/
 *.tfstate
 *.tfstate.*
+.terraform.tfstate.backup
+.terraform.lock.hcl
+
 crash.log
 override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
-.terraform.lock.hcl
-.terraform.tfstate.backup
 
-# Sensitive variables
+# Sensitive Terraform variables
 terraform.tfvars
 *.auto.tfvars
-
-# macOS
-.DS_Store
-
-# Python
-__pycache__/
-*.pyc
-.venv/
-env/
-venv/
-```
-trust-policy.json
-start.sh
-test.txt
-app.db
