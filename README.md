@@ -1,4 +1,4 @@
-FastAPI URL Shortener on AWS ECS (Terraform)
+# FastAPI URL Shortener on AWS ECS (Terraform)
 
 A production-style DevOps project deploying a Dockerised FastAPI application to AWS ECS Fargate using Terraform.
 
@@ -28,165 +28,27 @@ This project provisions cloud infrastructure and deploys a containerized FastAPI
 
 ##  Architecture
 
-```text
-User
- ↓
-Route53
- ↓
-HTTPS (ACM)
- ↓
-Application Load Balancer
- ↓
-ECS Fargate Service
- ↓
-FastAPI Container
-```
+![Alt text](/images/aws-diagram.png)
 
----
 
-## Infrastructure Components
+##  Deployment
+![Alt text](/images/live-app.png)
 
-### Networking
+![Alt text](/images/Terraform-plan.png)
 
-* Custom VPC
-* Public subnets
-* Private subnets
-* Internet Gateway
-* Security Groups
+![Alt text](/images/Terraform-apply.png)
 
-### Compute
+![Alt text](/images/Terraform-destroy.png)
 
-* ECS Cluster
-* ECS Service
-* Fargate Tasks
-* Task Definition
+![Alt text](/images/Deploy-ECR.png)
 
-### Load Balancing
 
-* ALB
-* Target Group
-* Health Checks
-* HTTP → HTTPS redirect
-
-### DNS / Security
-
-* Route53 Hosted Zone
-* Domain records
-* ACM certificate with DNS validation
-
----
 
 ## Live Endpoints
 
 * `https://bashirwarsame.online`
 * `https://api.bashirwarsame.online`
 
----
-
-## Tech Stack
-
-* Python / FastAPI
-* Docker
-* Terraform
-* AWS ECS
-* AWS ALB
-* AWS Route53
-* AWS ACM
-* GitHub Actions
-
----
-
-## Project Structure
-
-```text
-terraform/
-├── main.tf
-├── variables.tf
-├── outputs.tf
-├── terraform.tfvars
-└── modules/
-    ├── vpc/
-    ├── alb/
-    ├── ecs/
-    ├── dns/
-    └── acm/
-```
-
----
-
-## ▶️ Usage
-
-### Initialize Terraform
-
-```bash
-terraform init
-```
-
-### Preview Changes
-
-```bash
-terraform plan
-```
-
-### Deploy Infrastructure
-
-```bash
-terraform apply
-```
-
-### Destroy Infrastructure
-
-```bash
-terraform destroy
-```
-
----
-
-## Deploy App Image
-
-Build and push Docker image to ECR:
-
-```bash
-docker build -t fastapi-app .
-docker tag fastapi-app:latest <ecr-uri>:latest
-docker push <ecr-uri>:latest
-```
-
-Redeploy ECS service:
-
-```bash
-aws ecs update-service \
-  --cluster fastapi-ecs-cluster \
-  --service fastapi-ecs-service \
-  --force-new-deployment
-```
-
----
-
-## Security
-
-* HTTPS enabled with ACM
-* ALB security groups
-* ECS task security groups
-* OIDC-based GitHub Actions deployment planned
-* No hardcoded cloud credentials recommended
-
----
-
-## Future Improvements
-
-* GitHub Actions CI/CD with OIDC
-* Blue/Green deployments with CodeDeploy
-* ECS in private subnets + NAT Gateway
-* CloudWatch dashboards and alarms
-* VPC Endpoints
-* Auto scaling policies
----
-
-## Purpose
-
-This project demonstrates real-world AWS cloud engineering skills:
 
 
-s
 

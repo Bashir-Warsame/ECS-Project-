@@ -36,3 +36,4 @@ env/
 venv/
 ```
 .trust-policy.json
+.start.sh
