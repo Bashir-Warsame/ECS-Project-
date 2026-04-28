@@ -49,25 +49,16 @@ This project provisions cloud infrastructure and deploys a containerized FastAPI
 
 ## Infrastructure as Code
 Terraform is used to provision and manage all AWS resources in a repeatable, version-controlled way.
-
 ## Containerised Application
 The FastAPI application is packaged using Docker and deployed to ECS Fargate.
-
 ## Multi-Stage Docker Builds
 Uses multi-stage builds to create smaller, more secure production images.
-
 ## Secure HTTPS Access
 TLS certificates are managed with AWS ACM and attached to the Application Load Balancer.
-
 ## Managed Database
 Amazon RDS provides managed relational database storage.
-
-## Secrets Management
-Sensitive values such as credentials and configuration are stored securely in AWS Secrets Manager.
-
 ## Remote Terraform State
 Terraform state is stored in S3 with DynamoDB state locking for team-safe operations.
-
 ## CI/CD Ready
 Designed for automated build and deployment pipelines using GitHub Actions and OpenID Connect (OIDC).
 
