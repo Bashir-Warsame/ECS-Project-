@@ -7,32 +7,32 @@ This project provisions AWS infrastructure and deploys a containerised FastAPI a
 
 This project provisions cloud infrastructure and deploys a containerized FastAPI app with:
 
-##  Infrastructure as Code
+###  Infrastructure as Code
 - Terraform is used to provision and manage all AWS resources in a repeatable, version-controlled way
 - Ensures consistency across environments and enables safe infrastructure changes
 
-##  Containerised Application
+###  Containerised Application
 - FastAPI application is packaged using Docker
 - Deployed to AWS ECS Fargate as a stateless containerised service behind an ALB
 
-##  Docker Builds
+###  Docker Builds
 - Uses a lightweight 'pyhton:3.11-slim' base image to keep container small and efficient
 - Installs only the required application dependencies using requirements.text
 -runs the app as a non-root user to improves security and reduce privilege risks
 
-##  Secure HTTPS Access
+###  Secure HTTPS Access
 - TLS certificates are managed using AWS Certificate Manager (ACM)
 - Attached to the Application Load Balancer to enforce HTTPS
 
-##  Managed Database
+###  Managed Database
 - Amazon RDS provides a fully managed relational database service
 - Handles backups, patching, scaling, and high availability
 
-##  Remote Terraform State
+###  Remote Terraform State
 - Terraform state is stored in Amazon S3
 - DynamoDB is used for state locking to prevent concurrent modifications
 
-##  CI/CD Ready
+###  CI/CD Ready
 - Designed for automated deployments using GitHub Actions
 - Uses OpenID Connect (OIDC) for secure authentication without long-lived credentials
 
