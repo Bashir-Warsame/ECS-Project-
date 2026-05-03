@@ -74,8 +74,7 @@ Terraform state is stored remotely in S3, with DynamoDB used for state locking t
 - Production-ready deployment patterns
 
 ---
-## Data Flow
-### User Traffic
+## Data Flow -User Traffic
 
 Users access the application via a custom domain:
 
