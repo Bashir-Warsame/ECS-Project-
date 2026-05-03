@@ -2,11 +2,9 @@ name: Terraform Apply
 
 on:
   push:
-    branches: [main]
-    paths:
-      - 'app/**'
-      - 'Dockerfile'
-      - 'terraform/**'
+    workflows: ["Terraform Plan"]  # Trigger after the plan workflow finishes
+    types:
+      - completed
 
 permissions:
   id-token: write
@@ -20,6 +18,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Manual Approval
+          run: |
+            echo "Manual approval required. Please trigger this workflow manually after reviewing the plan output."
+            exit 1  # This stops the workflow until you manually re-run it
+          
       - name: Checkout
         uses: actions/checkout@v4
 

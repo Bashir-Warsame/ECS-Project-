@@ -1,6 +1,4 @@
-############################################
 # VPC
-############################################
 resource "aws_vpc" "this" {
   cidr_block           = var.cidr_block
   enable_dns_hostnames = true
@@ -11,9 +9,7 @@ resource "aws_vpc" "this" {
   }
 }
 
-############################################
 # INTERNET GATEWAY
-############################################
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.this.id
 
@@ -22,9 +18,7 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-############################################
 # PUBLIC SUBNETS
-############################################
 resource "aws_subnet" "public_a" {
   vpc_id                  = aws_vpc.this.id
   cidr_block              = "10.0.1.0/24"
@@ -47,9 +41,8 @@ resource "aws_subnet" "public_b" {
   }
 }
 
-############################################
+
 # PRIVATE SUBNETS
-############################################
 resource "aws_subnet" "private_a" {
   vpc_id            = aws_vpc.this.id
   cidr_block        = "10.0.11.0/24"
@@ -70,9 +63,7 @@ resource "aws_subnet" "private_b" {
   }
 }
 
-############################################
 # PUBLIC ROUTE TABLE
-############################################
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.this.id
 
@@ -97,9 +88,8 @@ resource "aws_route_table_association" "public_b" {
   route_table_id = aws_route_table.public.id
 }
 
-############################################
+
 # NAT GATEWAY (PUBLIC SUBNET)
-############################################
 resource "aws_eip" "nat" {
   domain = "vpc"
 }
@@ -115,9 +105,8 @@ resource "aws_nat_gateway" "this" {
   depends_on = [aws_internet_gateway.igw]
 }
 
-############################################
+
 # PRIVATE ROUTE TABLE
-############################################
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.this.id
 
