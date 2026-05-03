@@ -12,3 +12,4 @@ EXPOSE 8000
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 #creates a lightweight, secure container that installs your dependencies, 
 #runs as a non-root user, and serves your FastAPI app in a production-ready way
+#.
