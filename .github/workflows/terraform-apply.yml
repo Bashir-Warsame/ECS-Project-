@@ -1,10 +1,12 @@
 name: Terraform Apply
 
 on:
-  workflow_run:
-    workflows: ["Terraform Plan"]  # Trigger after the plan workflow finishes
-    types:
-      - completed
+  push:
+    branches: [main]
+    paths:
+      - 'app/**'
+      - 'Dockerfile'
+      - 'terraform/**'
 
 permissions:
   id-token: write
@@ -18,11 +20,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Manual Approval
-        run: |
-          echo "Manual approval required. Please trigger this workflow manually after reviewing the plan output."
-          exit 1  # Stops the workflow until manually re-run
-
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -42,6 +39,10 @@ jobs:
       - name: Terraform Validate
         working-directory: terraform
         run: terraform validate
+
+      - name: Terraform Plan
+        working-directory: terraform
+        run: terraform plan -input=false -lock-timeout=60s -out=tfplan
 
       - name: Terraform Apply
         working-directory: terraform
