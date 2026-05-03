@@ -1,7 +1,7 @@
 name: Terraform Apply
 
 on:
-  push:
+  workflow_run:
     workflows: ["Terraform Plan"]  # Trigger after the plan workflow finishes
     types:
       - completed
@@ -19,10 +19,10 @@ jobs:
 
     steps:
       - name: Manual Approval
-          run: |
-            echo "Manual approval required. Please trigger this workflow manually after reviewing the plan output."
-            exit 1  # This stops the workflow until you manually re-run it
-          
+        run: |
+          echo "Manual approval required. Please trigger this workflow manually after reviewing the plan output."
+          exit 1  # Stops the workflow until manually re-run
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -42,10 +42,6 @@ jobs:
       - name: Terraform Validate
         working-directory: terraform
         run: terraform validate
-
-      - name: Terraform Plan
-        working-directory: terraform
-        run: terraform plan -input=false -lock-timeout=60s -out=tfplan
 
       - name: Terraform Apply
         working-directory: terraform

@@ -77,6 +77,33 @@ Designed for automated build and deployment pipelines using GitHub Actions and O
 
 # Future Improvements
 
+Future Improvements & Next Iterations
+This project was intentionally scoped to demonstrate a clean, production-grade ECS deployment using modern DevOps practices. In future iterations, the following enhancements would be implemented to further align with enterprise-grade architectures:
+
+### Network Architecture Hardening
+- Migrate ECS tasks to **private subnets** with outbound access via **NAT Gateways**, reducing the public attack surface and improving network isolation.
+- Remove public IP assignment from ECS tasks, relying exclusively on the Application Load Balancer for ingress traffic.
+
+### Infrastructure as Code Security Scanning
+- Integrate **Checkov** into the CI pipeline to perform static analysis on Terraform code.
+- Enforce security and compliance best practices early in the deployment lifecycle.
+
+### Container Image Vulnerability Scanning
+- Add **Trivy** scans during CI to detect vulnerabilities in Docker images prior to pushing to Amazon ECR.
+- Fail builds on critical or high-severity vulnerabilities to prevent insecure images from reaching production.
+
+### CI/CD Pipeline Refinement
+- Further separate pipelines into distinct stages (e.g. `plan`, `apply`, `deploy`) to better reflect real-world promotion flows.
+- Introduce manual approval gates for infrastructure changes in production environments.
+
+These improvements represent natural next steps as the project evolves and would be prioritised in a multi-environment or team-based setup.
+
+
+## Setup & Reproduction
+
+This project can be reproduced locally for container testing, or fully deployed to AWS using Terraform and GitHub Actions.
+
+
 - Full GitHub Actions CI/CD pipeline  
 - Blue/Green deployments  
 - Autoscaling policies  
