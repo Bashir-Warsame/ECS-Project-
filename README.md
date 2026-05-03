@@ -125,7 +125,7 @@ GitHub Actions → Docker Build → Amazon ECR → ECS Service Updat
 
 Infrastructure is managed declaratively:
 
-Terraform → AWS (VPC, Subnets, ALB, ECS, ECR, ACM, Route 53)
+Terraform → AWS (VPC, ALB, ECS, ACM, DNS)
 
 - Terraform defines all AWS resources as code  
 - Changes are applied via CI/CD pipelines  
