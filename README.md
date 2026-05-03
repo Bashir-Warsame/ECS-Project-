@@ -7,20 +7,33 @@ This project provisions AWS infrastructure and deploys a containerised FastAPI a
 
 This project provisions cloud infrastructure and deploys a containerized FastAPI app with:
 
-## Infrastructure as Code
-Terraform is used to provision and manage all AWS resources in a repeatable, version-controlled way.
-## Containerised Application
-The FastAPI application is packaged using Docker and deployed to ECS Fargate.
-## Multi-Stage Docker Builds
-Uses multi-stage builds to create smaller, more secure production images.
-## Secure HTTPS Access
-TLS certificates are managed with AWS ACM and attached to the Application Load Balancer.
-## Managed Database
-Amazon RDS provides managed relational database storage.
-## Remote Terraform State
-Terraform state is stored in S3 with DynamoDB state locking for team-safe operations.
-## CI/CD Ready
-Designed for automated build and deployment pipelines using GitHub Actions and OpenID Connect (OIDC).
+##  Infrastructure as Code
+- Terraform is used to provision and manage all AWS resources in a repeatable, version-controlled way
+- Ensures consistency across environments and enables safe infrastructure changes
+
+##  Containerised Application
+- FastAPI application is packaged using Docker
+- Deployed to AWS ECS Fargate as a stateless containerised service behind an ALB
+
+##  Multi-Stage Docker Builds
+- Uses multi-stage Docker builds to reduce image size
+- Improves security by removing unnecessary build dependencies from the final image
+
+##  Secure HTTPS Access
+- TLS certificates are managed using AWS Certificate Manager (ACM)
+- Attached to the Application Load Balancer to enforce HTTPS
+
+##  Managed Database
+- Amazon RDS provides a fully managed relational database service
+- Handles backups, patching, scaling, and high availability
+
+##  Remote Terraform State
+- Terraform state is stored in Amazon S3
+- DynamoDB is used for state locking to prevent concurrent modifications
+
+##  CI/CD Ready
+- Designed for automated deployments using GitHub Actions
+- Uses OpenID Connect (OIDC) for secure authentication without long-lived credentials
 
 ## Infrastructure Overview
 
@@ -34,6 +47,7 @@ Application logs are streamed to CloudWatch Logs, enabling monitoring, troublesh
 
 All infrastructure is provisioned using Terraform, following Infrastructure as Code principles.
 Terraform state is stored remotely in S3, with DynamoDB used for state locking to prevent concurrent modifications and ensure consistency.
+
 ---
 
 ##  Architecture
