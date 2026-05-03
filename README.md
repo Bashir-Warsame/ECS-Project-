@@ -24,10 +24,6 @@ This project provisions cloud infrastructure and deploys a containerized FastAPI
 - TLS certificates are managed using AWS Certificate Manager (ACM)
 - Attached to the Application Load Balancer to enforce HTTPS
 
-###  Managed Database
-- Amazon RDS provides a fully managed relational database service
-- Handles backups, patching, scaling, and high availability
-
 ###  Remote Terraform State
 - Terraform state is stored in Amazon S3
 - DynamoDB is used for state locking to prevent concurrent modifications
