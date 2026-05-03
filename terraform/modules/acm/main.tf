@@ -8,9 +8,7 @@ resource "aws_acm_certificate" "this" {
   }
 }
 
-# -----------------------------------
 # Route53 DNS validation records
-# -----------------------------------
 data "aws_route53_zone" "this" {
   name         = var.domain_name
   private_zone = false
@@ -33,9 +31,8 @@ resource "aws_route53_record" "validation" {
   ttl     = 60
 }
 
-# -----------------------------------
+
 # Certificate validation trigger
-# -----------------------------------
 resource "aws_acm_certificate_validation" "this" {
   certificate_arn         = aws_acm_certificate.this.arn
   validation_record_fqdns = [for r in aws_route53_record.validation : r.fqdn]
