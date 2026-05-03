@@ -7,22 +7,33 @@ This project provisions AWS infrastructure and deploys a containerised FastAPI a
 
 This project provisions cloud infrastructure and deploys a containerized FastAPI app with:
 
-### Infrastructure as Code
+## Infrastructure as Code
 Terraform is used to provision and manage all AWS resources in a repeatable, version-controlled way.
-### Containerised Application
+## Containerised Application
 The FastAPI application is packaged using Docker and deployed to ECS Fargate.
-### Multi-Stage Docker Builds
+## Multi-Stage Docker Builds
 Uses multi-stage builds to create smaller, more secure production images.
-### Secure HTTPS Access
+## Secure HTTPS Access
 TLS certificates are managed with AWS ACM and attached to the Application Load Balancer.
-### Managed Database
+## Managed Database
 Amazon RDS provides managed relational database storage.
-### Remote Terraform State
+## Remote Terraform State
 Terraform state is stored in S3 with DynamoDB state locking for team-safe operations.
-### CI/CD Ready
+## CI/CD Ready
 Designed for automated build and deployment pipelines using GitHub Actions and OpenID Connect (OIDC).
 
+## Infrastructure Overview
 
+The application is deployed as a stateless containerised service on AWS ECS Fargate, running within private subnets for enhanced security.
+It is exposed to users via an Application Load Balancer (ALB), which handles incoming traffic and distributes it across healthy ECS tasks.
+
+Traffic is routed through Route 53, providing DNS resolution for a custom domain, and secured using AWS Certificate Manager (ACM) to enable HTTPS with managed TLS certificates.
+
+Container images are built and stored in Amazon ECR, allowing ECS to pull versioned images during deployments.
+Application logs are streamed to CloudWatch Logs, enabling monitoring, troubleshooting, and observability.
+
+All infrastructure is provisioned using Terraform, following Infrastructure as Code principles.
+Terraform state is stored remotely in S3, with DynamoDB used for state locking to prevent concurrent modifications and ensure consistency.
 ---
 
 ##  Architecture
@@ -61,6 +72,44 @@ Designed for automated build and deployment pipelines using GitHub Actions and O
 - Docker container orchestration  
 - Infrastructure automation with Terraform  
 - Production-ready deployment patterns
+
+---
+## Data Flow
+### User Traffic
+
+Users access the application via a custom domain:
+
+Users → Route 53 → Application Load Balancer → ECS Fargate (container port 8000)
+
+Route 53 resolves the domain name to the ALB
+The ALB terminates HTTPS using ACM certificates
+Traffic is forwarded to ECS tasks running in private subnets
+Only healthy containers receive traffic via target group health checks
+
+---
+
+## CI/CD Pipeline
+
+Application deployments are fully automated:
+
+GitHub Actions → Docker Build → Amazon ECR → ECS Service Updat
+
+- GitHub Actions builds the Docker image  
+- The image is tagged using the commit SHA and pushed to ECR  
+- ECS service is updated, triggering a new deployment  
+- New tasks pull the latest image and replace old running tasks  
+
+---
+
+## Infrastructure Provisioning
+
+Infrastructure is managed declaratively:
+
+Terraform → AWS (VPC, Subnets, ALB, ECS, ECR, ACM, Route 53)
+
+- Terraform defines all AWS resources as code  
+- Changes are applied via CI/CD pipelines  
+- Remote state ensures consistency across environments  
 
 ---
 
