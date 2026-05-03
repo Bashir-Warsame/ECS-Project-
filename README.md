@@ -87,16 +87,24 @@ Terraform state is stored remotely in S3, with DynamoDB used for state locking t
 - Production-ready deployment patterns
 
 ---
-## Data Flow -User Traffic
 
-Users access the application via a custom domain:
+##  Data Flow – User Traffic
 
-Users → Route 53 → Application Load Balancer → ECS Fargate (container port 8000)
+Users access the application via a custom domain hosted in Route 53.
 
-Route 53 resolves the domain name to the ALB
-The ALB terminates HTTPS using ACM certificates
-Traffic is forwarded to ECS tasks running in private subnets
-Only healthy containers receive traffic via target group health checks
+Users → Route 53 → Application Load Balancer (ALB) → ECS Fargate (private subnets, port 8000)
+
+- Route 53 resolves the domain name to the ALB DNS record  
+- The ALB is deployed in public subnets and acts as the internet-facing entry point  
+- HTTPS traffic is terminated at the ALB using ACM-managed TLS certificates  
+- The ALB forwards requests to ECS Fargate tasks running in private subnets  
+- Only healthy containers receive traffic based on ALB target group health checks  
+
+##  Network Flow (Internal Architecture)
+
+- ECS tasks run in **private subnets** with no direct internet exposure  
+- A **NAT Gateway in a public subnet** provides outbound internet access for private resources  
+- NAT routes traffic through the **Internet Gateway** to access external services (e.g. package downloads, APIs)  
 
 ---
 
