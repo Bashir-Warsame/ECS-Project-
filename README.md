@@ -7,15 +7,20 @@ This project provisions AWS infrastructure and deploys a containerised FastAPI a
 
 This project provisions cloud infrastructure and deploys a containerized FastAPI app with:
 
-* **Terraform** for Infrastructure as Code
-* **AWS ECS Fargate** for serverless containers
-* **Application Load Balancer (ALB)** for traffic routing
-* **Amazon ECR** for Docker image storage
-* **Route53** for custom domain DNS
-* **AWS ACM** for HTTPS / SSL certificates
-* **GitHub Actions + OIDC** planned for CI/CD
-* **S3 + DynamoDB - Remote** state + locking
-* **AWS Secrets Manager** – Secure secrets storage
+### Infrastructure as Code
+Terraform is used to provision and manage all AWS resources in a repeatable, version-controlled way.
+### Containerised Application
+The FastAPI application is packaged using Docker and deployed to ECS Fargate.
+### Multi-Stage Docker Builds
+Uses multi-stage builds to create smaller, more secure production images.
+### Secure HTTPS Access
+TLS certificates are managed with AWS ACM and attached to the Application Load Balancer.
+### Managed Database
+Amazon RDS provides managed relational database storage.
+### Remote Terraform State
+Terraform state is stored in S3 with DynamoDB state locking for team-safe operations.
+### CI/CD Ready
+Designed for automated build and deployment pipelines using GitHub Actions and OpenID Connect (OIDC).
 
 
 ---
@@ -36,31 +41,15 @@ This project provisions cloud infrastructure and deploys a containerized FastAPI
 ![Alt text](/images/Terraform-destroy.png)
 ### ECR Deployment
 ![Alt text](/images/Deploy-ECR.png)
+### ACM Certificate
+![Alt text](/images/acm_cert.png)
+
 
 
 ## Live Endpoints
 
 * `https://bashirwarsame.online`
 * `https://api.bashirwarsame.online`
-
----
-
-# Key Features
-
-### Infrastructure as Code
-Terraform is used to provision and manage all AWS resources in a repeatable, version-controlled way.
-### Containerised Application
-The FastAPI application is packaged using Docker and deployed to ECS Fargate.
-### Multi-Stage Docker Builds
-Uses multi-stage builds to create smaller, more secure production images.
-### Secure HTTPS Access
-TLS certificates are managed with AWS ACM and attached to the Application Load Balancer.
-### Managed Database
-Amazon RDS provides managed relational database storage.
-### Remote Terraform State
-Terraform state is stored in S3 with DynamoDB state locking for team-safe operations.
-### CI/CD Ready
-Designed for automated build and deployment pipelines using GitHub Actions and OpenID Connect (OIDC).
 
 ---
 
@@ -80,38 +69,34 @@ Designed for automated build and deployment pipelines using GitHub Actions and O
 Future Improvements & Next Iterations
 This project was intentionally scoped to demonstrate a clean, production-grade ECS deployment using modern DevOps practices. In future iterations, the following enhancements would be implemented to further align with enterprise-grade architectures:
 
-### Network Architecture Hardening
-- Migrate ECS tasks to **private subnets** with outbound access via **NAT Gateways**, reducing the public attack surface and improving network isolation.
-- Remove public IP assignment from ECS tasks, relying exclusively on the Application Load Balancer for ingress traffic.
+### DevSecOps Enhancements
+- Integrate SAST and dependency scanning into the CI/CD pipeline
+- Add container image scanning before pushing to ECR
+- Introduce AWS WAF in front of the ALB to protect against common web attacks 
+- Enforce stricter IAM least privilege policies and role separation
 
-### Infrastructure as Code Security Scanning
-- Integrate **Checkov** into the CI pipeline to perform static analysis on Terraform code.
-- Enforce security and compliance best practices early in the deployment lifecycle.
+### Deployment Strategies
+- mplement blue/green deployments using AWS CodeDeploy with ECS
+- Add canary deployments to gradually shift traffic
+- Introduce automated rollback based on health checks or alarms
 
-### Container Image Vulnerability Scanning
-- Add **Trivy** scans during CI to detect vulnerabilities in Docker images prior to pushing to Amazon ECR.
-- Fail builds on critical or high-severity vulnerabilities to prevent insecure images from reaching production.
+### Scalability & Performance
+- Configure ECS Service Auto Scaling based on CPU/memory or request count
+- Add caching layer (e.g. Redis / ElastiCache) for faster URL lookups
+- Optimise container performance and resource allocation
 
-### CI/CD Pipeline Refinement
-- Further separate pipelines into distinct stages (e.g. `plan`, `apply`, `deploy`) to better reflect real-world promotion flows.
-- Introduce manual approval gates for infrastructure changes in production environments.
+### Observability & Monitoring
+- Enhance logging with structured logs and correlation IDs
+- Add CloudWatch dashboards and alarms for proactive monitoring
+- Integrate distributed tracing (e.g. AWS X-Ray)
+- Add alerting (e.g. Slack/email notifications) for failures
+
+### Security & Networking
+- Use VPC endpoints to avoid public internet access for AWS services
+- Restrict outbound traffic instead of allowing 0.0.0.0/0
+- Implement Secrets Manager rotation for credentials
 
 These improvements represent natural next steps as the project evolves and would be prioritised in a multi-environment or team-based setup.
-
-
-## Setup & Reproduction
-
-This project can be reproduced locally for container testing, or fully deployed to AWS using Terraform and GitHub Actions.
-
-
-- Full GitHub Actions CI/CD pipeline  
-- Blue/Green deployments  
-- Autoscaling policies  
-- Monitoring with CloudWatch dashboards  
-- Centralised logging  
-- WAF integration  
-- Cost optimisation improvements
-
 
 # Tech Stack
 
