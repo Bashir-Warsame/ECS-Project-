@@ -15,9 +15,10 @@ This project provisions cloud infrastructure and deploys a containerized FastAPI
 - FastAPI application is packaged using Docker
 - Deployed to AWS ECS Fargate as a stateless containerised service behind an ALB
 
-##  Multi-Stage Docker Builds
-- Uses multi-stage Docker builds to reduce image size
-- Improves security by removing unnecessary build dependencies from the final image
+##  Docker Builds
+- Uses a lightweight 'pyhton:3.11-slim' base image to keep container small and efficient
+- Installs only the required application dependencies using requirements.text
+-runs the app as a non-root user to improves security and reduce privilege risks
 
 ##  Secure HTTPS Access
 - TLS certificates are managed using AWS Certificate Manager (ACM)
@@ -35,7 +36,9 @@ This project provisions cloud infrastructure and deploys a containerized FastAPI
 - Designed for automated deployments using GitHub Actions
 - Uses OpenID Connect (OIDC) for secure authentication without long-lived credentials
 
-## Infrastructure Overview
+----
+
+##  Infrastructure Overview
 
 The application is deployed as a stateless containerised service on AWS ECS Fargate, running within private subnets for enhanced security.
 It is exposed to users via an Application Load Balancer (ALB), which handles incoming traffic and distributes it across healthy ECS tasks.
