@@ -34,21 +34,6 @@ This project provisions cloud infrastructure and deploys a containerized FastAPI
 
 ----
 
-##  Infrastructure Overview
-
-The application is deployed as a stateless containerised service on AWS ECS Fargate, running within private subnets for enhanced security.
-It is exposed to users via an Application Load Balancer (ALB), which handles incoming traffic and distributes it across healthy ECS tasks.
-
-Traffic is routed through Route 53, providing DNS resolution for a custom domain, and secured using AWS Certificate Manager (ACM) to enable HTTPS with managed TLS certificates.
-
-Container images are built and stored in Amazon ECR, allowing ECS to pull versioned images during deployments.
-Application logs are streamed to CloudWatch Logs, enabling monitoring, troubleshooting, and observability.
-
-All infrastructure is provisioned using Terraform, following Infrastructure as Code principles.
-Terraform state is stored remotely in S3, with DynamoDB used for state locking to prevent concurrent modifications and ensure consistency.
-
----
-
 ##  Architecture
 
 ![Alt text](/images/aws-diagram.png)
